@@ -1,0 +1,12 @@
+env/
+
+.ipynb_checkpoints
+
+*.tar
+dataset.zip
+*.zip
+
+checkpoints/
+output/
+
+__pycache__
