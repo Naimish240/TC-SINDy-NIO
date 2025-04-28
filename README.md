@@ -34,7 +34,7 @@ The dataset is created through the following steps:
 
 ## Satellite Image Download
 
-The raw images were downloaded from [EUMETSAT](https://data.eumetsat.int/product/EO:EUM:DAT:0081) and further processed to generate the training dataset. The images have three channels [(page 11)](https://user.eumetsat.int/s3/eup-strapi-media/pdf_mviri_fcdr_atbd_75cac1f577.pdf)
+The raw images were downloaded from [EUMETSAT](https://data.eumetsat.int/product/EO:EUM:DAT:0081) [(alt)](https://navigator.eumetsat.int/product/EO:EUM:DAT:0081) and further processed to generate the training dataset. The images have three channels [(page 11)](https://user.eumetsat.int/s3/eup-strapi-media/pdf_mviri_fcdr_atbd_75cac1f577.pdf)
 
 - IR 108 (InfraRed at 11500 nm)
 - VIS 6 (VISible at 700 nm)
