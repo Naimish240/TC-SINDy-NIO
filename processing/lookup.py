@@ -46,8 +46,8 @@ def create_latlon_pixel_mapping(file="output\\20070531060000.png",
                 results.append({
                     'lat': round(lat, 2),
                     'lon': round(lon, 2),
-                    'x_pixel': int(round(x)),
-                    'y_pixel': int(round(2500-y))
+                    'y_pixel': int(round(x)),
+                    'x_pixel': int(round(2500-y))
                 })
     
     df = pd.DataFrame(results)

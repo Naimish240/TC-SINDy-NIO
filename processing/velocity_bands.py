@@ -19,7 +19,7 @@ def LUT(file="..\\latlon_pixel_map.csv"):
     lut = {}
 
     for lat, lon, x, y in foo:
-        lut[lat, lon] = (int(x), int(y))
+        lut[lat, lon] = (int(y), int(x))
     
     return lut
 
@@ -27,7 +27,7 @@ COORDINATE_LUT = LUT()
 
 def create_mask(lat, lon, dia_deg):
     # Mask Points
-    pts =[[-0.5, 0.0], [-0.4, -0.3], [-0.4, 0.3], [-0.3, -0.4], [-0.3, 0.4], [0.0, -0.5], [0.0, 0.5], [0.3, -0.4], [0.3, 0.4], [0.4, -0.3], [0.4, 0.3], [0.5, 0.0]]
+    pts =[[-0.5, 0.0], [-0.4, -0.3], [-0.3, -0.4], [0.0, -0.5], [0.3, -0.4], [0.4, -0.3], [0.5, 0.0], [0.4, 0.3], [0.3, 0.4], [0.0, 0.5], [-0.3, 0.4], [-0.4, 0.3]]
     pts = [[x*dia_deg, y*dia_deg] for x, y in pts]
     pts = [[x+lat, y+lon] for x, y in pts]
     pts = np.array([COORDINATE_LUT[(round(x*10)/10, round(y*10)/10)] for x, y in pts])
@@ -123,41 +123,24 @@ if __name__ == '__main__':
 
         lut.append([filename] + foo)
 
-    columns = [
-        'filename',
-        'vel_ir_x_1',
-        'vel_ir_y_1',
-        'vel_ir_x_2',
-        'vel_ir_y_2',
-        'vel_ir_x_3',
-        'vel_ir_y_3',
-        'vel_ir_x_4',
-        'vel_ir_y_4',
-        'vel_ir_x_5',
-        'vel_ir_y_5',
-        'vel_ir_x_6',
-        'vel_ir_y_6',
-        'vel_ir_x_7',
-        'vel_ir_y_7',
-        'vel_ir_x_8',
-        'vel_ir_y_8',
-        'vel_wv_x_1',
-        'vel_wv_y_1',
-        'vel_wv_x_2',
-        'vel_wv_y_2',
-        'vel_wv_x_3',
-        'vel_wv_y_3',
-        'vel_wv_x_4',
-        'vel_wv_y_4',
-        'vel_wv_x_5',
-        'vel_wv_y_5',
-        'vel_wv_x_6',
-        'vel_wv_y_6',
-        'vel_wv_x_7',
-        'vel_wv_y_7',
-        'vel_wv_x_8',
-        'vel_wv_y_8'
-    ]
+    columns = ['filename']
+
+    for ch in ['ir', 'wv']:
+        for i in range(1, 9):
+            columns.append(f'vel_{ch}_x_{i}')
+            columns.append(f'vel_{ch}_y_{i}')
     
     output = pd.DataFrame(lut, columns=columns)
+
+    # Sheer Calculations
+    for wavelength in ['ir', 'wv']:
+        for i in range(1, 8):
+            col1 = f'vel_{wavelength}_x_{i+1}'
+            col2 = f'vel_{wavelength}_x_{i}'
+            col3 = f'vel_{wavelength}_y_{i+1}'
+            col4 = f'vel_{wavelength}_y_{i}'
+
+            diff_col = f'sheer_{wavelength}_{i}'
+            output[diff_col] = (output[col1] - output[col2]) / (output[col3] - output[col4])
+
     output.to_csv(f'velocity_bands_{args.partition}.csv', index=False)
