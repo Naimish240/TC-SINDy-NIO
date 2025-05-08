@@ -121,3 +121,5 @@ The model is expected to discover potential candidates for differential equation
 [] Add plotting for final trajectory
 
 [] Split into BoB and Arb cyclones to see if basin change improves model performance 
+
+[] Train-Test splitting
