@@ -17,6 +17,7 @@ NOTE : WiP, needs to be finalized.
   - [SINDy Overview](#sindy-overview)
   - [TC System](#tc-system)
   - [Output](#output)
+  - [To Do:](#to-do)
 
 
 # **Abstract**
@@ -113,3 +114,10 @@ The candidate library $\Theta(X)$ is constructed accordingly.
 ## Output
 
 The model is expected to discover potential candidates for differential equations that approximate the trajectory of cyclones from the given data.
+
+
+## To Do:
+
+[] Add plotting for final trajectory
+
+[] Split into BoB and Arb cyclones to see if basin change improves model performance 
